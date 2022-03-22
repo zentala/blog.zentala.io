@@ -1,7 +1,8 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import Link from 'next/link'
+import styles from '../styles/Welcome.module.css'
 
 const Home: NextPage = () => {
   return (
@@ -14,7 +15,7 @@ const Home: NextPage = () => {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
+          Welcome to <Link href='/info'>Zentala.io!</Link>
         </h1>
 
         <p className={styles.description}>
@@ -23,31 +24,43 @@ const Home: NextPage = () => {
         </p>
 
         <div className={styles.grid}>
-          <a href="https://nextjs.org/docs" className={styles.card}>
-            <h2>Documentation &rarr;</h2>
-            <p>Find in-depth information about Next.js features and API.</p>
-          </a>
-
-          <a href="https://nextjs.org/learn" className={styles.card}>
-            <h2>Learn &rarr;</h2>
-            <p>Learn about Next.js in an interactive course with quizzes!</p>
+          <a
+            href="https://cv.zentala.io"
+            target='_blank'
+            rel="noreferrer"
+            className={styles.card}
+          >
+            <h2>CV &rarr;</h2>
+            <p>Me, my skills, experience, employment history.</p>
           </a>
 
           <a
-            href="https://github.com/vercel/next.js/tree/canary/examples"
+            href="https://github.com/zentala"
+            target='_blank'
+            rel="noreferrer"
             className={styles.card}
           >
-            <h2>Examples &rarr;</h2>
-            <p>Discover and deploy boilerplate example Next.js projects.</p>
+            <h2>GitHub &rarr;</h2>
+            <p>My open source projects and repositories.</p>
           </a>
 
           <a
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
+            href="https://www.behance.net/pzentala"
+            target='_blank'
+            rel="noreferrer"
             className={styles.card}
           >
-            <h2>Deploy &rarr;</h2>
+            <h2>Behance &rarr;</h2>
+            <p>My old web designs and printables.</p>
+          </a>
+
+          <a
+            href="/blog"
+            className={styles.card}
+          >
+            <h2>Blog &rarr;</h2>
             <p>
-              Instantly deploy your Next.js site to a public URL with Vercel.
+              Thoughts, articles, know-how, felietons
             </p>
           </a>
         </div>
