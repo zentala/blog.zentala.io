@@ -1,1 +1,0 @@
-{"version":3,"sources":["js/index.js","index.js"],"names":["console","log"],"mappings":";;;AAAAA,QAAQC,IAAI;;ACIZ,aAHA,QAAA,qBAGA,QAAA","file":"src.dca3cf30.js","sourceRoot":"../src","sourcesContent":["console.log('xxx');\n","/* Import styles - Parcel needs it here */\nimport './scss/index.scss';\n\n/* Import proper page logic in JS */\nimport './js/index';\n"]}
