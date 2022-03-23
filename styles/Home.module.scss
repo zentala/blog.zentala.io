@@ -1,0 +1,34 @@
+.mainContainer {
+  padding: 15px 30px;
+  padding-top: 45px;
+}
+
+.articleList {
+  margin-top: 55px;
+}
+
+.desc {
+  color: #3b3b3b;
+  font-style: italic;
+  font-size: 0.85rem;
+}
+
+.articleList > div {
+  margin-bottom: 50px;
+}
+
+// https://css-tricks.com/a-lightweight-masonry-solution/
+$w: Min(30em, 100%);
+$s: 2em;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, $w);
+  grid-template-rows: masonr;
+  justify-content: flex-start;
+  grid-gap: $s;
+  padding: $s;
+  margin: 0 -($s);
+
+  > * { width: $w }
+}

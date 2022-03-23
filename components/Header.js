@@ -10,9 +10,6 @@ const Header = () => {
         </h2>
         <ul>
           <li>
-            <Link href='/welcome'>Welcome</Link>
-          </li>
-          <li>
             <Link href='/posts'>Blog</Link>
           </li>
           <li>

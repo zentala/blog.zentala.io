@@ -1,6 +1,6 @@
 import getPosts from '../../scripts/fileSystem';
 import PostItem from '../../components/PostItem';
-import styles from '../../styles/Home.module.css';
+import styles from '../../styles/Home.module.scss';
 import Meta from '../../components/Meta';
 
 const index = ({ posts }) => {
@@ -8,9 +8,11 @@ const index = ({ posts }) => {
     <div>
       <Meta title='Blog posts - PressBlog' />
       <p className={styles.desc}>All Posts</p>
-      {posts.map((post) => (
-        <PostItem key={post.slug} post={post} />
-      ))}
+      <div className={styles.grid}>
+        {posts.map((post) => (
+          <PostItem key={post.slug} post={post} />
+        ))}
+      </div>
     </div>
   );
 };

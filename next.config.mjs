@@ -21,7 +21,7 @@ const nextConfig = withMDX({
   ) {
     console.log(defaultPathMap);
     return {
-      '/': { page: '/' },
+      '/': { page: '/posts' },
       // '/info.mdx': { page: '/dupa' },
       // '/about': { page: '/about' },
       // '/info': { page: '/info.mdx' },

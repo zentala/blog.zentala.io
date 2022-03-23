@@ -1,7 +1,10 @@
 .postTitle {
-  border-bottom: 2px solid rgb(164, 233, 228);
+  border-bottom: 1px solid #eee;
   padding-bottom: 13px;
+  font-weight: normal;
 }
+
+.h2 {font-weight: normal;}
 
 .link {
   color: rgb(0, 110, 255);
@@ -13,4 +16,13 @@
   border: none;
   border-radius: 4px;
   padding: 0.5em 1em;
+}
+
+.code {
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
 }

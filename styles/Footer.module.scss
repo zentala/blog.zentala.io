@@ -1,0 +1,19 @@
+.footer {
+  display: flex;
+  flex: 1;
+  padding: 1.5rem 0 1.5rem;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.icon {
+  font-size: 120%;
+}
+
+.footer a {
+  color: #999;
+  &:hover {
+    color: #888;
+  }
+}
+

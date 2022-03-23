@@ -1,15 +1,15 @@
 import Link from 'next/link';
-import { MeetMe, Meta, PostItem } from '../components';
+import { Meta, PostItem } from '../components'; // MeetMe
 import getPosts from '../scripts/fileSystem';
-import styles from '../styles/Home.module.css';
+import styles from '../styles/Home.module.scss';
 
 
 const index = ({ posts }) => {
   return (
     <>
       <Meta title='Zentala | Blog' />
-      <MeetMe />
-      <Link href='/about'>More about me</Link>
+      {/* <MeetMe /> */}
+      {/* <Link href='/about'>More about me</Link> */}
 
       <div className={styles.articleList}>
         <p className={styles.desc}>Newly Published</p>

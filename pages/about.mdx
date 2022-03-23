@@ -1,13 +1,47 @@
-import { MeetMe, Meta } from '../components';
+import Link from 'next/link';
+import { Card, MeetMe, Meta } from '../components';
+import styles from '../styles/About.module.css';
 
 <Meta title='About Paweł Żentała' />
 
+# Welcome to <Link href='/info'>Zentala.io!</Link>
+
+
 <MeetMe />
 
-#### Let's dive into more of me
+## Let's dive into more of me
 
 Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea deserunt ab maiores eligendi nemo, ipsa, pariatur blanditiis, ullam exercitationem beatae incidunt deleniti ut sit est accusantium dolorum temporibus ipsam quae.
 
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea deserunt ab maiores eligendi nemo, ipsa, pariatur blanditiis, ullam exercitationem beatae incidunt deleniti ut sit est accusantium dolorum temporibus ipsam quae.
+<div className={styles.grid}>
+  {/* <Card
+    href='https://cv.zentala.io'
+    title='CV'
+    desc='Me, my skills, experience, employment history.'
+  /> */}
 
-Lorem, ipsum dolor sit amet consectetur adipisicing elit. Ea deserunt ab maiores eligendi nemo, ipsa, pariatur blanditiis, ullam exercitationem beatae incidunt deleniti ut sit est accusantium dolorum temporibus ipsam quae.
+  <Card
+    href='https://www.linkedin.com/in/zentala/'
+    title='LinkedIn'
+    desc='Me, my skills, experience, employment history.'
+  />
+
+
+  <Card
+    href='https://github.com/zentala'
+    title='GitHub'
+    desc='My open source projects and repositories.'
+  />
+
+  <Card
+    href='https://www.behance.net/pzentala'
+    title='Behance'
+    desc='My old web designs and printables.'
+  />
+
+  {/* <Card
+    href='/blog'
+    title='Blog'
+    desc='Thoughts, articles, know-how, felietons'
+  /> */}
+</div>
