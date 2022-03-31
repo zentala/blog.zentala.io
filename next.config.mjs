@@ -21,7 +21,6 @@ const nextConfig = withMDX({
   ) {
     console.log(defaultPathMap);
     return {
-      '/': { page: '/posts' },
       // '/info.mdx': { page: '/dupa' },
       // '/about': { page: '/about' },
       // '/info': { page: '/info.mdx' },
@@ -40,7 +39,9 @@ const nextConfig = withMDX({
   // Support MDX files as pages:
   pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
 
-
+  // plugins: [
+  //   '@babel/plugin-proposal-export-default-from'
+  // ]
 })
 
 export default nextConfig

@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import styles from '../styles/Header.module.css';
+import { GithubOutlined } from '@ant-design/icons';
 
 const Header = () => {
   return (
@@ -14,6 +15,14 @@ const Header = () => {
           </li>
           <li>
             <Link href='/about'>About</Link>
+          </li>
+          <li>
+            <a
+              href="https://github.com/zentala/blog.zentala.io"
+              target="_blank"
+              rel="noopener noreferrer">
+                <GithubOutlined />
+            </a>
           </li>
         </ul>
       </div>

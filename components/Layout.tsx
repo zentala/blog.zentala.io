@@ -1,11 +1,10 @@
-import { Header, Footer, HeaderBanner } from '../components';
+import { Header, Footer, HeaderBanner } from '.';
 import "antd/dist/antd.css";
 
 const Layout = ({ children }) => {
-
   return (
     <div>
-      <HeaderBanner />
+      {/* <HeaderBanner /> */}
       <Header />
       <main className='max-width-container main'>
         {children}

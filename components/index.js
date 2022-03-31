@@ -1,10 +1,11 @@
-import Header from "./Header";
-import Footer from "./Footer";
-import MDXComponents from "./MDXComponents";
-import MeetMe from "./MeetMe";
-import Meta from "./Meta";
-import PostItem from "./PostItem";
-import Card from "./Card";
-import HeaderBanner from "./HeaderBanner";
-
-export { Header, Footer, MDXComponents, MeetMe, Meta, PostItem, Card, HeaderBanner };
+export { default as Header } from "./Header";
+export { default as Footer } from "./Footer";
+export { default as MDXComponents } from "./MDXComponents";
+export { default as MeetMe } from "./MeetMe";
+export { default as Meta } from "./Meta";
+export { default as PostItem } from "./PostItem";
+export { default as Card } from "./Card";
+export { default as HeaderBanner } from "./HeaderBanner";
+export { default as EmbedSlider } from "./EmbedSlider";
+export { default as Newsletter } from "./Newsletter";
+export { default as Tags } from "./Tags";

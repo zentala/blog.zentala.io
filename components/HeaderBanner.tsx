@@ -1,7 +1,7 @@
 import { SpeakerphoneIcon, XIcon } from '@heroicons/react/outline'
 import { useRef } from 'react';
 
-export default function Example() {
+const Example = () => {
   const mainNode = useRef("");
   const handingRef = () => {
     mainNode.current.classList.add("hidden");
@@ -34,3 +34,5 @@ export default function Example() {
     </div>
   )
 }
+
+export default Example
