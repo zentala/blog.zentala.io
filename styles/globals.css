@@ -2,6 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+/* https://github.com/PrismJS/prism-themes */
+@import "prism-themes/themes/prism-coldark-dark.css";
+
 .max-width-container {
   max-width: 1060px;
   margin-left: auto;

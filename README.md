@@ -52,3 +52,6 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 ## Components avaliable in MDX
 * https://www.npmjs.com/package/react-social-media-embed
 * 
+
+## Markdown
+[GFM (GitHub Flavored Markdown)](https://github.github.com/gfm/): autolink literals (www.x.com), footnotes ([^1]), strikethrough (~~stuff~~), tables (| cell |…), and tasklists (* [x]). 

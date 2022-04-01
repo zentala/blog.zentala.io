@@ -5,14 +5,42 @@ import path from 'path'
 import matter from 'gray-matter'
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@reach/disclosure";
-import { Meta, EmbedSlider, Newsletter, Tags } from '../components'
+import { Meta, EmbedSlider, Newsletter, Tags, Inset, SocialShare } from '../components'
 
 import { FacebookEmbed, InstagramEmbed, LinkedInEmbed, TikTokEmbed, TwitterEmbed, YouTubeEmbed, PlaceholderEmbed } from 'react-social-media-embed';
+
+// import remarkFrontmatter from 'remark-frontmatter'
+/*
+ * GitHub Flavored Markdown
+ * (autolink literals, footnotes, strikethrough, tables, tasklists)
+ * https://github.com/remarkjs/remark-gfm
+ */
+import remarkGfm from 'remark-gfm';
+
+/*
+ * highlight code blocks
+ * https://github.com/mapbox/rehype-prism
+ * https://github.com/timlrx/rehype-prism-plus
+ */
+// import rehypePrism from '@mapbox/rehype-prism';
+import rehypePrism from 'rehype-prism-plus';
+
+/*
+ * Add support for directives: one syntax for arbitrary extensions in markdown
+ * https://github.com/remarkjs/remark-directive
+ * https://talk.commonmark.org/t/generic-directives-plugins-syntax/444
+ */
+
+import remarkDirective from 'remark-directive'
+
+// https://github.com/remarkjs/remark-lint
+// https://github.com/luk707/rehype-truncate
+// https://github.com/rehypejs/rehype-highlight
 
 const allowedComponents = {
   Disclosure, DisclosureButton, DisclosurePanel,
   FacebookEmbed, InstagramEmbed, LinkedInEmbed, TikTokEmbed, TwitterEmbed, YouTubeEmbed, PlaceholderEmbed,
-  Meta, EmbedSlider, Newsletter
+  Meta, EmbedSlider, Newsletter, Inset
 }
 
 type FrontMatterProps = {
@@ -28,11 +56,16 @@ type Props = {
   mdxSource: any,
 }
 
+
+
+
+
 const PostPage: React.FC<Props> = ({ frontMatter: { title, publishedOn, excerpt, tags, readingTime }, mdxSource }) => {
   console.log(readingTime);
 
   return (
     <div className="mt-4 max-w-screen-md">
+      <SocialShare />
       <Meta title={`${title} | Zentala.io`} />
       <h1 className='text-5xl font-bold text-slate-900 font-serif'>{title}</h1>
       <p className='text-sm text-slate-500'>Published {publishedOn} | Tags: <Tags tags={tags} /> | Reading time: {readingTime} </p>
@@ -59,7 +92,10 @@ export const getStaticPaths = async () => {
 export const getStaticProps = async ({ params: { slug } }) => {
   const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.mdx'), 'utf-8')
   const { data: frontMatter, content } = matter(markdownWithMeta)
-  const mdxSource = await serialize(content)
+  const mdxSource = await serialize(content, { mdxOptions: {
+    remarkPlugins: [remarkGfm, remarkDirective],
+    rehypePlugins: [rehypePrism],
+  }})
   return {
     props: {
       frontMatter,

@@ -1,3 +1,14 @@
+const Inset = ({ children }) => {
+  return (
+    <div style={{margin: '30px -50px 10px'}}>
+        {children}
+    </div>
+  );
+};
+
+
+export { Inset };
+
 export { default as Header } from "./Header";
 export { default as Footer } from "./Footer";
 export { default as MDXComponents } from "./MDXComponents";
@@ -9,3 +20,4 @@ export { default as HeaderBanner } from "./HeaderBanner";
 export { default as EmbedSlider } from "./EmbedSlider";
 export { default as Newsletter } from "./Newsletter";
 export { default as Tags } from "./Tags";
+export { default as SocialShare } from "./SocialShare";

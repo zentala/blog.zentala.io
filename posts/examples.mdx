@@ -1,0 +1,79 @@
+---
+title: MDX Examples
+publishedOn: 30th of March 2022
+excerpt: Demo of all MDX features implemented on the blog.
+tags: ['MDX', 'markdown', 'statically generated']
+category: 'EU'
+---
+
+# Basic
+
+
+
+# GFM
+
+## Autolink literals
+
+www.example.com, https://example.com, and contact@example.com.
+
+## Footnote
+
+A note[^1]
+
+[^1]: Big note.
+
+## Strikethrough
+
+~one~ or ~~two~~ tildes.
+
+## Table
+
+| a | b  |  c |  d  |
+| - | :- | -: | :-: |
+
+## Tasklist
+
+* [ ] to do
+* [x] done
+
+
+# Directive
+:::main{#readme}
+
+Lorem:br
+ipsum.
+
+::hr{.red}
+
+A :i[lovely] language know as :abbr[HTML]{title="HyperText Markup Language"}.
+
+:::
+
+
+# Prism
+```bash
+#!/bin/bash
+ls -l
+```
+
+``` javascript
+const fs = require('fs');
+fs.readdir('./', (err, files) => {
+  if (err) throw err;
+  files.forEach(file => {
+    console.log(file);
+  });
+});
+```
+
+~~~js
+console.log(1)
+~~~
+
+```js {1,3-4} showLineNumbers
+function fancyAlert(arg) {
+  if (arg) {
+    $.facebox({ div: '#foo' })
+  }
+}
+```
