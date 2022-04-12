@@ -1,20 +1,29 @@
 ---
 title: MDX Examples
 publishedOn: 30th of March 2022
-excerpt: Demo of all MDX features implemented on the blog.
+excerpt: Demonstration of MDX features implemented on the blog - overview what were implemented in the theme, how to use it, and how it is rendered.
 tags: ['MDX', 'markdown', 'statically generated']
 category: 'EU'
 ---
 
+This page should be moved to pages. It it not intended to exist as not blog entry.
+It should be still avaliabe for debugging purposes, but not recommended content.
+
 # Basic
-
-
+https://docs.github.com/en/get-started/writing-on-github/getting-started-with-writing-and-formatting-on-github/basic-writing-and-formatting-syntax
 
 # GFM
+[GFM (GitHub Flavored Markdown)](https://github.github.com/gfm/):  often shortened as GFM,
+is the dialect of Markdown that is currently supported for user content on GitHub.com.
+Implemented with [`remark-gfm`](https://www.npmjs.com/package/remark-gfm). Contains such markdown extentions as:
 
 ## Autolink literals
 
 www.example.com, https://example.com, and contact@example.com.
+
+```md
+www.example.com, https://example.com, and contact@example.com.
+```
 
 ## Footnote
 
@@ -22,22 +31,45 @@ A note[^1]
 
 [^1]: Big note.
 
+```md
+A note[^1]
+
+[^1]: Big note.
+```
+
 ## Strikethrough
 
 ~one~ or ~~two~~ tildes.
+
+```md
+~one~ or ~~two~~ tildes.
+```
 
 ## Table
 
 | a | b  |  c |  d  |
 | - | :- | -: | :-: |
 
+```md
+| a | b  |  c |  d  |
+| - | :- | -: | :-: |
+```
+
 ## Tasklist
 
 * [ ] to do
 * [x] done
 
+```md
+* [ ] to do
+* [x] done
+```
+
 
 # Directive
+
+remark-directive
+
 :::main{#readme}
 
 Lorem:br
@@ -50,13 +82,57 @@ A :i[lovely] language know as :abbr[HTML]{title="HyperText Markup Language"}.
 :::
 
 
-# Prism
-```bash
+# Code highlighting
+I set up code highlighting with:
+
+* [Prism.js](https://prismjs.com/) is a lightweight, extensible **syntax highlighter**.
+* [`rehype-prism-plus`](https://www.npmjs.com/package/rehype-prism-plus) plugin
+* [`prism-themes`](https://github.com/PrismJS/prism-themes)
+
+Example colorizing lines:
+* https://codesandbox.io/s/mdx-line-numbers-code-highlighting-99wb5?file=/src/components/layout.css
+
+Looking for lang info:
+* https://prismjs.com/plugins/show-language/
+
+There are other solutions:
+* https://rehype-pretty-code.netlify.app/
+
+TODO:
+* [ ] [display lang in the title](https://prismjs.com/plugins/show-language/)
+* [ ] filename in the title
+* [ ] tabs for code pages
+* [ ] [copy to clipboard button](https://prismjs.com/plugins/copy-to-clipboard/)
+* [ ] [download button](https://prismjs.com/plugins/download-button/)
+* [ ] add MDX lang
+* [ ] [command line](https://prismjs.com/plugins/command-line/): `#`, `$`...
+
+I could propabaly implemnet most of it with Prism plugins, but that require some research and work. Maybe this way:
+* https://stackoverflow.com/questions/60564172/prismjs-with-react-using-babel-plugin-prismjs
+* https://dev.to/alanwsmith/add-line-numbers-to-prismjs-code-blocks-in-a-nextjs-project-50g1
+
+```tsx
+export default class App extends NextApp {
+  render() {
+    const { Component, pageProps } = this.props
+    return (
+      <ThemeProvider theme={theme}>
+        <ColorModeProvider value="light">
+          <CSSReset />
+          <Component {...pageProps} />
+        </ColorModeProvider>
+      </ThemeProvider>
+    )
+  }
+}
+```
+
+``` bash
 #!/bin/bash
 ls -l
 ```
 
-``` javascript
+``` javascript filename="index.js"
 const fs = require('fs');
 fs.readdir('./', (err, files) => {
   if (err) throw err;
@@ -66,7 +142,7 @@ fs.readdir('./', (err, files) => {
 });
 ```
 
-~~~js
+~~~js filename="test.js"
 console.log(1)
 ~~~
 
@@ -77,3 +153,11 @@ function fancyAlert(arg) {
   }
 }
 ```
+
+# MDX Embed
+[MDX Embed](https://www.mdx-embed.com/) - awesome pack of modules, not impelmented yet
+
+
+# Meta
+remark-frontmatter
+https://github.com/rehypejs/rehype-meta

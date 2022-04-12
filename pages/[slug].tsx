@@ -1,46 +1,18 @@
-import { serialize } from 'next-mdx-remote/serialize'
 import { MDXRemote } from 'next-mdx-remote'
 import fs from 'fs'
 import path from 'path'
-import matter from 'gray-matter'
 
 import { Disclosure, DisclosureButton, DisclosurePanel } from "@reach/disclosure";
-import { Meta, EmbedSlider, Newsletter, Tags, Inset, SocialShare } from '../components'
+import { Meta, EmbedSlider, Newsletter, Tags, Inset, SocialShare, WIP } from '../components'
 
 import { FacebookEmbed, InstagramEmbed, LinkedInEmbed, TikTokEmbed, TwitterEmbed, YouTubeEmbed, PlaceholderEmbed } from 'react-social-media-embed';
 
-// import remarkFrontmatter from 'remark-frontmatter'
-/*
- * GitHub Flavored Markdown
- * (autolink literals, footnotes, strikethrough, tables, tasklists)
- * https://github.com/remarkjs/remark-gfm
- */
-import remarkGfm from 'remark-gfm';
-
-/*
- * highlight code blocks
- * https://github.com/mapbox/rehype-prism
- * https://github.com/timlrx/rehype-prism-plus
- */
-// import rehypePrism from '@mapbox/rehype-prism';
-import rehypePrism from 'rehype-prism-plus';
-
-/*
- * Add support for directives: one syntax for arbitrary extensions in markdown
- * https://github.com/remarkjs/remark-directive
- * https://talk.commonmark.org/t/generic-directives-plugins-syntax/444
- */
-
-import remarkDirective from 'remark-directive'
-
-// https://github.com/remarkjs/remark-lint
-// https://github.com/luk707/rehype-truncate
-// https://github.com/rehypejs/rehype-highlight
+import { getPost } from '../scripts/fileSystem';
 
 const allowedComponents = {
   Disclosure, DisclosureButton, DisclosurePanel,
   FacebookEmbed, InstagramEmbed, LinkedInEmbed, TikTokEmbed, TwitterEmbed, YouTubeEmbed, PlaceholderEmbed,
-  Meta, EmbedSlider, Newsletter, Inset
+  Meta, EmbedSlider, Newsletter, Inset, WIP
 }
 
 type FrontMatterProps = {
@@ -52,25 +24,30 @@ type FrontMatterProps = {
 }
 
 type Props = {
-  frontMatter: FrontMatterProps,
-  mdxSource: any,
+  data: FrontMatterProps,
+  conent: any,
 }
 
+const PostPage: React.FC<Props> = (...params) => {
+  const { data, content, slug, readingTime } = params[0];
+  const { title, publishedOn, excerpt, tags } = data;
 
-
-
-
-const PostPage: React.FC<Props> = ({ frontMatter: { title, publishedOn, excerpt, tags, readingTime }, mdxSource }) => {
-  console.log(readingTime);
+  const info = (
+    <ul className='text-sm text-slate-400 inline-flex space-x-10'>
+      {publishedOn && (<li>Published <span className='text-slate-500'>{publishedOn}</span></li>)}
+      {tags && (<li>Tags: <span className='text-slate-500'><Tags tags={tags} /></span></li>)}
+      {readingTime && (<li>Reading time: {readingTime}</li>)}
+    </ul>
+  )
 
   return (
     <div className="mt-4 max-w-screen-md">
       <SocialShare />
       <Meta title={`${title} | Zentala.io`} />
       <h1 className='text-5xl font-bold text-slate-900 font-serif'>{title}</h1>
-      <p className='text-sm text-slate-500'>Published {publishedOn} | Tags: <Tags tags={tags} /> | Reading time: {readingTime} </p>
+      {info}
       <p className='text-2xl text-slate-900 mb-10 first-letter:text-6xl first-letter:font-bold first-letter:mr-3 first-letter:float-left font-serif'>{excerpt}</p>
-      <MDXRemote {...mdxSource} components={allowedComponents} />
+      <MDXRemote {...content} components={allowedComponents} />
     </div>
   )
 }
@@ -90,19 +67,13 @@ export const getStaticPaths = async () => {
 }
 
 export const getStaticProps = async ({ params: { slug } }) => {
-  const markdownWithMeta = fs.readFileSync(path.join('posts', slug + '.mdx'), 'utf-8')
-  const { data: frontMatter, content } = matter(markdownWithMeta)
-  const mdxSource = await serialize(content, { mdxOptions: {
-    remarkPlugins: [remarkGfm, remarkDirective],
-    rehypePlugins: [rehypePrism],
-  }})
+  const post = await getPost(slug);
+
   return {
     props: {
-      frontMatter,
-      slug,
-      mdxSource
-    }
-  }
+      ...post
+    },
+  };
 }
 
 export default PostPage

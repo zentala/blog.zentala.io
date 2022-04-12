@@ -1,3 +1,5 @@
+import styles from '../styles/Components.module.scss';
+
 const Inset = ({ children }) => {
   return (
     <div style={{margin: '30px -50px 10px'}}>
@@ -6,8 +8,16 @@ const Inset = ({ children }) => {
   );
 };
 
+const Stage = ({ children }) => {
+  return (
+    <div className={styles.stage}>
+        {children}
+    </div>
+  );
+};
 
-export { Inset };
+
+export { Inset, Stage as WIP };
 
 export { default as Header } from "./Header";
 export { default as Footer } from "./Footer";

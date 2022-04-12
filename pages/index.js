@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { Meta, PostItem, MeetMe } from '../components';
-import getPosts from '../scripts/fileSystem';
+import { getPosts } from '../scripts/fileSystem';
 import styles from '../styles/Home.module.scss';
 
 const index = ({ posts }) => {

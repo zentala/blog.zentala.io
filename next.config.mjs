@@ -32,7 +32,7 @@ const nextConfig = withMDX({
   exportPathMap,
   images: {
     loader: 'imgix',
-    path: 'https://blog.zentala.io/'
+    path: process.env.NODE_ENV == 'prod' ? 'https://blog.zentala.io/' : 'http://localhost:3000/',
   },
   experimental: {
     esmExternals: true // Prefer loading of ES Modules over CommonJS

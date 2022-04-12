@@ -1,0 +1,15 @@
+.stage {
+  opacity: 0.6;
+  border-right: 1px dashed rgba(0, 0, 0, 0.6);
+  position: relative;
+  &:after {
+    content: 'WIP';
+    position: absolute;
+    top: 0;
+    right: 0;
+    font-size: 0.8em;
+    color: rgba(0, 0, 0, 0.6);
+
+  }
+
+}

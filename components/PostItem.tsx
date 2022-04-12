@@ -21,7 +21,8 @@ const PostItem = ({ post }) => {
       <div className='flex flex-grow'></div>
       <div className='flex self-end justify-between'>
         <p style={{fontSize: '80%'}} className='float-left '>Published on {post.data.publishedOn}</p>
-        <p>{post.readingTime}</p>
+        {/* <p>post.readingTime: {post.readingTime}</p> */}
+        {/* <p>post.data.readingTime: {post.data.readingTime}</p> */}{/* works */}
         <Link href={`/${post.slug}`} className='float-right'><button>Read more</button></Link>
       </div>
 
