@@ -10,7 +10,7 @@ const Header = () => {
       <div className='max-width-container'>
         <h2>
           <Link href='/'>
-            <img src='/logo/logo2.png' style={{ maxHeight: 40 }} />
+            <img src='/logo/logo7.png' style={{ maxHeight: 40, opacity: 0.8 }} />
             {/* <Image src="/logo/logo1.png" alt="me" height="64" layout='fill'/> */}
           </Link>
         </h2>

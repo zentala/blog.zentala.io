@@ -11,9 +11,19 @@ const MeetMe = () => {
         height={150}
       />
       <p style={{ marginLeft: 20 }}>
-        Hey, I am <strong>Pawel Zentala</strong>. <br/>
-        Manager and Full-Stack Developer with wide experience (online marketing, business, IoT, robotics).
-        I will publish about modernization and Digital Transformation.
+        Hey, I am <strong>Paweł Żentała</strong>. <br/>
+
+        Technology enthusiast and advocate of digitization.
+
+        I deal with the systemic application of technology from a philosophical approach.
+        in a wide context and in various dimensions.
+
+        As an activist, I run a [group about Futures Studies](https://www.facebook.com/groups/futures.studies).
+
+        I am a software engineer and manager with broad experience (online marketing, elearing, IoT, robotics).
+
+        As a writer, I publish about modernization and digital transformation,
+        sharing ideas about how we could improve our lives with technology.
       </p>
     </div>
   );

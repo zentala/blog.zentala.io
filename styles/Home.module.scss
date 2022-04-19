@@ -7,10 +7,22 @@
   margin-top: 55px;
 }
 
+// $desc-base-color: #3b3b3b;
+$desc-base-color: rgba(0,0,0,0.15);
+
 .desc {
-  color: #3b3b3b;
-  font-style: italic;
-  font-size: 0.85rem;
+  color: $desc-base-color;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  display: flex;
+  align-items: center;
+  font-weight: 900;
+  &:after {
+    content: '';
+    flex: auto;
+    margin-left: 1rem;
+    border-top: 0.55rem solid lighten($desc-base-color, 20%);
+  }
 }
 
 .articleList > div {
