@@ -1,0 +1,212 @@
+
+---
+title: Smart Home with Bone.io
+publishedOn: 30th of March 2022
+excerpt: My setup of smart home and instructions for you how to start with smart home with this sysyem
+tags: ['Bone.io', 'smart home', 'IoT']
+category: 'IoT'
+---
+
+# Czego się dowiesz i nauczysz
+Jestem programistą z doświadczeniem w IoT.
+Kupiłem mieszkanie 50m2, z dwoma pokojami i kuchnia, wybudowane w 1955 roku.
+Musialem je wyremontowac, wiec przy okazji zdecydowalem uczynic sie je z smart (domem) z Bone.io.
+
+Czym jest Bone.io?
+- w pelni otwarte oprogramoanie oraz hardware rdzenia systemu smart home
+- stworzone w oparciu o BeagleBone Black (SBC) i customowe PCB do zamowienia od producenta plytek PCB
+- opracowane przez Maciej Krasuki, i rozwijane przez społeczność programistów i elektronikow
+- w ciaglym rozwoju - niektóre swietne funkcje powinny być gotowe wkrótce
+
+Dlaczego wiec Bone.io?
+* open-source, a ja chcę eksperymentowac z IoT, jest duzo do wymyslenia, zamkniete systemy nie pozwalaja na to
+* cost-effective - jest po prostu tanie w porowaniu z innymi rozwiazaniami
+* latwe, opiera sie na naprawde prostych pryncypiach, zarowno hardwarowo jak i stwarowo nie jest zbyt zlozone
+* silna spolecznosc - pomagala, dawala rady, dyskutowala, tworzyla.
+
+W tym artykile podzilee sie z Tobą:
+* co mozesz zrobic z Bone.io - jakie sa jego mozliwosci, co mozna do niego podlaczyc i jak go uzyc
+* moja architektura smart home, i podejscia do architektury
+* co musisz rozwazyc planujac smart home
+* z jakimi wyzwaniami sie spotkalem i jak do nich mozna podejsc
+* czego nauczylem sie podczas wdraznia swojego systemu
+* czego sie nauczyc z elektryki, elektroniki i protokolow komunikacyjnych
+
+Mozesz uznac ten art za za tutorial jak zbudowac smart home w mieszkaniu na Bone.io w oparciu o realny przyklad.
+
+Mam nadzieje, ze zmotywuje Cie do samodzielnych eksperymementow, i przyda Ci sie ta wiedza gdy bedziesz planowal swoje inteligente meieszkanie.
+
+# Czym jest Bone.io i czy moge je czyms zastpiac?
+
+
+# Possibilites
+> Start with reading Bone.io docs.
+
+czym ja chce sterowac i jakie sa mozliwosci sterownia
+
+## Analog Inputs
+* high/low signal; zwarcie; np dzwonek ale tez
+* one wire senosrs eg. temperature, movement sensor
+
+### button, np. przycisk dzwonkowy
+kazdy przucisk chwilowy, tak zwany button mozna podlaczyc pod wejscie analogowe
+button daje nam infomacje jaka chcemy - stan niski(rozlaczony) albo wysoki (zwarty, wcisniety)
+w ten sposob mozemy np przyciskami dzwonowymi sterowac swiatlem (z tym ze wtedy to klik wlacza swiatlo, a nie przelaczenie wlacznika bo nie da sie go na stale przelaczyc)
+mozna obsludzic 1-klik, 2-klik i np long-press i dac na to rozne akcje
+pobaw sie z buttonem po prostu: dac jakis link do filemu o buttonach
+
+### czujnik ruchu
+najwazniszy ze wszystkich czzujnikow
+wchodzisz do domu z sitami zakupow, w korutarzu swiatlo wlaczy sie same, idziesz do kuchni - to samo
+wychodziz z lazienki, wylacza sie same, nie myslisz o tym, a wiatrak wylacza sie pare minut po
+
+wiekszosc z nich moze dawac stan wysoki albo niski, czyli "w przeciaug ostanich X sekund w zasiegu czujnika wydarzyl sie ruch" albo nie. proste.
+
+### kontaktron
+wyobraz sobie nastepujacy case.
+idziesz do kibelka i siadasz na tronie
+czujnik wykryl ruch ale zamyslles sie i swiatlo gasnie, bo przestales sie ruszac na dluzsza chwile
+jak temu zapobiec?
+mamy w drzwiach kontaktron, czunik otwarcia.
+i dajemy nastepujaca regule
+jesli po otwarciu i zamknieciu drzwi w lazience zostanie w niej wykryty ruch to znaczy ze ktos jest w srodku i do nastpenego otwarcia nie gasimy swiatla! proste.
+
+ja zamierzam zamontowac kontaktony do wszyskich drzwi bez wyjatku oraz do wszystkich okien bez wyjatku
+
+kontraktony sa tanie jak barszcz, dostepne w kolorze cznym i bialym i potrze im tylko 2 zyl
+daja stan "zamkniety" albo "otwarty" - wysoki albo niski
+prosty analowgowy sensor
+
+### wylacznik krancowy
+
+### czujnik zalania
+montuje sie przy plytkach, wykrywa zwarcie spowodowane przeplywem pradu miedzy elektrodami, zwartymi woda znajdaujaca sie na podlodze
+dajesz na wejscie max 24v i jesli na wyjsciu masz 0 to nie ma wody na podlodze, a jak masz 24 to znaczy ze prad przeplynal przez wode, zalalo Ci kuchnie czy lazienke
+
+## Relays
+zazwyczaj podlaczamy urzadzenia na 240v ale mozemuy tez stwrowac urzadzeniami na nizsze napiecia, co podajmy to wyjdzie
+* zarowki 240v
+* wiatrak w lazience, dowolny silnik krecoy sie w jedna stonne
+* dzwonek do drzwi; u mnie na szyne DIN - wejscie jest na button dzwonowy podpinay do Bone, a wyjscie z relay, w ten sposob bone wie ze ktos dzwoni, moge np zrobic regule ze od 22:00 do 7:00 nad rame dzwonek nie dziala
+* niektore gniazdka jesli chce nimi sterowac z jakiegos powodu
+
+I could connect:
+ * alartm sound and light too
+
+## 2 directionsal Motors (2x relatys)
+Bone.io community is working on driving motors eg roler blinder motors.
+* rolety
+* zaslony
+* bramy
+* chowany projektor i ekran projecyjny
+cokolwiek co moze byc sterowane w 2 strony, w 2 kierunkach
+
+## LEDs
+* LED baord, dowaolna ilosc kanalow
+
+### Co musisz wiedziec o tasmach led?
+* sa kanaly, kazyd kolor to kanal
+* rgb/rgbw/rozne oddcienie W
+* masz X kanalow, czasmei tasma uzywa 1 a czasami wiecej, dobirze takie tasmy jakie uwazasz ze Ci potrzeba liczac kanaly
+
+## RS485
+Read: https://ntronic.pl/rs-485/
+* licznik pradu?
+
+## Ethernethet
+bone jest urzadzeniem sieciowym i moze wspolpracowc ze wszystkim podpietym do sieci po eth lub po wifi
+kamery IP, czujnik bezprzeowodwe
+
+## other interfaces
+masz port USB, mozesz podlaczyc urzadzenie USB albo nawet modem <produkul co korzysta Ivan> i laczyc sie z nimi bezprzewodowo chociaz jest to dosc egzotyczne rozwiazanie, bo po to Ci bone.io aby zrobic all przewodowo i miec mniej awaryjna potencjalnie siec
+
+# planning cable installation
+
+## architektura w gwiazde:
+  * latwosc debugowania, latwosc konfigracji i przebudowywania
+  * achiektura rozproszona, wielu gwiazd w wiekszym budynku - uwazam to za najrozsdniesze rozwiazanie
+  * https://budujemydom.pl/instalacje/instalacje-elektryczne/a/21467-bezpuszkowa-instalacja-elektryczna-to-podstawa
+  * https://budujemydom.pl/instalacje/instalacje-elektryczne/a/21485-jak-nalezy-poprowadzic-bezpuszkowa-instalacje-elektryczna
+  * przewody sa wzgledni tanie
+
+ciekway komentarz (nadaje sie do wiekszych domow chociaz i ja rozwazam aby zrobic troche dodatowa mala giwazdke):
+```
+Polecam całkiem inny system, sprawdzony od 4 lat, tani, zapewniający sterowanie jasnością i łatwą rozbudowę. Zamiast gwiazda, która ma więcej wad niż zalet polecam system małych rozdzielnic średnio na 3 pomieszczenia i jedna główna większa. W ten sposób wszelkie przewody prądowe i większość sygnałowych jest możliwie krótka, a magistrale komunikacyjne przechodząc przez te rozdzielnice zapewniają sterowanie. W temacie światła moim zdaniem najlepiej sterować DMX pomiędzy rozdzielnicami. HA może po art-net sterować bramką ethernet/dmx znajdującą się w głównej rozdzielnicy. W celu zmniejszenia prądu paski led na 24v, jeden zasilacz gdzieś w centrum i tylko solidniejsze przewody od zasilacza do mniejszych rozdzielnic w których znajdują się drivery led dmx zależnie od potrzeb. Mam 30 kanałowe drivery po 2A na kanał (50W na kanał w ledach to bardzo dużo światła) Dodatkowo drivery stałoprądowe 700mA do power led i kilka obwodów jest podłączone przez wzmacniacze prądu do 5A. Przewody driver-pasek led 2.5mm2, ale spokojnie mogą być 1.5 bo odległości nie są duże, max kilkanaście metrów. Teraz ciekawostka. Praktyka pokazała, że dobre ledy samsung na paskach długości całych pomieszczeń plus kinkiety przerobione na paski itd. są tak jasne przy 24v, że po czasie napięcie na zasilaczu centralnym zostało zmniejszone z 24v na 20v dając dokładniejszą regulację jasności po dmx, a max jasność jest wystarczająca, natomiast w pwm driverów max prąd jest kilkakrotnie mniejszy. (Led ma bardzo nieliniową charakterystyke u/i) Instalacja ma ponad 120 kanałów wliczając dodatkową masę rgb które są realnie nieużytkiem. W praktyce nigdy wszystkie światła nie będą razem na 100% jasności więc zasilacz 600W jest całkiem wystarczający.
+```
+
+## dobor kabli
+* przekroje kabli do jakich punktow jakie
+  * elekstyczne
+  * komunikacyjne i do zasilania maluych rzeczy - skretka
+  * siec, internt, upt6
+
+
+# switchboard
+Rozdzielnica.
+
+> Wyzwanie: nie ma rodzielnic dedykowanych do smart home
+w ogogole jest bueda jesli chodzi o aparature modulowa do smart home
+
+## Mozliwe elementy rodzielnicy
+* klasyka czyli szyny DIN
+* rozdzial skretek
+* rodzielnica mulimedialna - rozdzielic internet
+
+## Czesto uzywane rozdzielnice
+
+## czego powininees nauczyc sie elektryce aby zaplanowac rozdzielnice i instalacje
+
+* uklady sieci
+* przekroje kabli
+* zabezpieczenia
+
+ogolnie
+
+tutaj zebrac linki do Ciekawych YT i artow i dac do przeczytaniaw odpowniedniej kolejniosci
+
+## Moja rodzielnica bez obudowy
+Pomysł na rozdzielnicę bez obudowy:
+* uchwyt szyny DIN, 50mm wysokosci; 12szt za 117zl: https://allegro.pl/oferta/uchwyt-szyny-tse-um-01-50-r34rr-05030100143-11916954663 mocowany kołkam rozporowymi do ściany lub do blachy perforowanej, która to mocowana będzie do ściany
+* 4x szyna DIN perforowana, 0,5mb za 5,99zl/szt: https://allegro.pl/oferta/szyna-montazowa-th-35-din-listwa-perforowana-0-5m-10755656340
+* przewody puszczę kanał grzebieniowy 40x40; 9zl /mb: https://www.speckable.pl/pl/product/10568,kanal-grzebieniowy-szary-40x40
+* natomiast wnęka zabezpieczona dzwiczkami rewizyjnymi na wymiar: https://www.mikavent.pl/pl/p/Drzwiczki-rewizyjne-metalowe-na-wymiar/3104  albo te wyglądają świetnie: https://www.luxmetal.pl/drzwiczki-rewizyjne
+
+Zastanawiam się ew zrobić dzwiczki z dymionej plexy aby było widać "mózg" mieszkania za szybą.
+Projektuję mieszkanie nieco w stylu industrialnym, więc będzie pasować.
+Mógłbym zbić te cegłę i zrobić tę instalacje bezpośrednio na cegle.
+Zza czarnej dymionej plexy byłoby widać rozdzielnicę z Bone.io na ścianie z czerwonej cegły.
+
+# przeprowadzanie instalacji
+## planowanie
+* jak zrobic liste punktow, urzadzen, kabli wyliczenie
+* porpizycje jakie gniazda i do czego, checkboxy
+
+## obszycie rozdzielnicy w domu
+* tak robia elektrycy
+* pozwala to wzglednie bezpiecznie ptzetestowac instalacje
+* polecam pozniej dac wszustko elektrokiwo do sprawdzenia i ostatecznego montazu
+
+## otworny pod gniazdka i bruzdowanie
+* otwory na puski, jak duze, czym zrobic
+* alternatywne sposoby na gniazdka -  MainLine
+* bruzdy pod przewody i ew ich zabezpiecznie albo pod GK
+* gdzie klasc a gdzie nie klasc kabli
+* zabezpiecznie puszczek przed dalszymi pracowania
+* laczenie kabli
+
+## sufit podwieszany do eksperymentow
+w suficie moga znajdowac sie rozne cuda jak np
+* custom swiatla
+* system naglosnenia strfeowrgo
+* czujniki ruchu
+
+aby zostawic sobie otwarta reke w rozwianiu ioT w niektorych miejssach dalem podwieszany, by moc latwo dokladac kolejne przewody
+
+# remont mieskznaia
+* wyzwania zwiazane z aktualizacja instalacji
+  * prosty przyklad: https://budujemydom.pl/instalacje/instalacje-elektryczne/a/23991-remont-instalacji-elektrycznej-po-20-latach-uzytkowania
+* typ sieci enegetycznej
+* ciekie przewody, czesto aluminiowe
+* przeniesienie licznika
+* brak miejsca na rozdzielnice
+* wymiana przewodow, jak
