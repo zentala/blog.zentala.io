@@ -14,17 +14,17 @@ Musialem je wyremontowac, wiec przy okazji zdecydowalem uczynic sie je z smart (
 
 Czym jest Bone.io?
 - w pelni otwarte oprogramoanie oraz hardware rdzenia systemu smart home
-- stworzone w oparciu o BeagleBone Black (SBC) i customowe PCB do zamowienia od producenta plytek PCB
-- opracowane przez Maciej Krasuki, i rozwijane przez społeczność programistów i elektronikow
+- stworzone w oparciu o BeagleBone Black (SBC) i customowe PCB z elementami wykonywalnymi (przekazniki)
+- opracowane przez Maciej Krasuki, i rozwijane przez społeczność programistów i elektronikow, w duzej mierze Kamila Bozyka, ktory bardzo ciezko pracuje nad kolejnymi wersjami elektroniki
 - w ciaglym rozwoju - niektóre swietne funkcje powinny być gotowe wkrótce
 
 Dlaczego wiec Bone.io?
 * open-source, a ja chcę eksperymentowac z IoT, jest duzo do wymyslenia, zamkniete systemy nie pozwalaja na to
-* cost-effective - jest po prostu tanie w porowaniu z innymi rozwiazaniami
+* cost-effective - jest po prostu tanie w porowaniu z innymi rozwiazaniami, mnie kosztowalo 2000 zl za Bone.io (zamowione u Kamila) + nowe BBB + zasilacz
 * latwe, opiera sie na naprawde prostych pryncypiach, zarowno hardwarowo jak i stwarowo nie jest zbyt zlozone
-* silna spolecznosc - pomagala, dawala rady, dyskutowala, tworzyla.
+* spolecznosc - pomagala, dawala rady, dyskutowala, tworzyla.
 
-W tym artykile podzilee sie z Tobą:
+W tym artykile podzilee sie z Tobą :
 * co mozesz zrobic z Bone.io - jakie sa jego mozliwosci, co mozna do niego podlaczyc i jak go uzyc
 * moja architektura smart home, i podejscia do architektury
 * co musisz rozwazyc planujac smart home
@@ -33,6 +33,8 @@ W tym artykile podzilee sie z Tobą:
 * czego sie nauczyc z elektryki, elektroniki i protokolow komunikacyjnych
 
 Mozesz uznac ten art za za tutorial jak zbudowac smart home w mieszkaniu na Bone.io w oparciu o realny przyklad.
+
+Z mojej strony ten artykul to forma podziekowania dla tworcow i spolecznosci Bone.io (szczegolnie dla Macieja i Kamila). Staralem sie nim uzupelnic luke w edukacji o budowie smart-home, uporzadkowac wiedze ktorej nie ma w oficjalnej dokumentajci sytysemu i tez nie ma powodu aby tam byla.
 
 Mam nadzieje, ze zmotywuje Cie do samodzielnych eksperymementow, i przyda Ci sie ta wiedza gdy bedziesz planowal swoje inteligente meieszkanie.
 
@@ -166,17 +168,25 @@ w ogogole jest bueda jesli chodzi o aparature modulowa do smart home
 
 ### Moj pomysl na rodzielnica bez obudowy we wnece sciennej
 Pomysł na rozdzielnicę bez obudowy:
-* uchwyt szyny DIN mocowany kołkam rozporowymi do ściany lub płyty montazowej
+* uchwyt szyny DIN
   * 20mm wysokości; 12szt 46zl: https://allegro.pl/oferta/uchwyt-szyny-tse-um-01-20-r34rr-05030100103-11917053927
   * 25mm wysokości; 12szt za 77zl: https://allegro.pl/oferta/uchwyt-szyny-tse-um-01-25-r34rr-05030100113-12szt-11916939536
   * 50mm wysokosci; 12szt za 117zl: https://allegro.pl/oferta/uchwyt-szyny-tse-um-01-50-r34rr-05030100143-11916954663
   * 70mm wysokości; 12szt za 110zł: https://allegro.pl/oferta/uchwyt-szyny-tse-um-01-70-r34rr-05030100153-11917053940
   * 90mm wysokości; 12szt za 125zl: https://allegro.pl/oferta/uchwyt-szyny-tse-um-01-90-r34rr-05030100163-12szt-11916939522
   * ukośny, 12szt za 45zł: https://allegro.pl/oferta/uchwyt-szyny-tse-um-02-r34rr-05030100203-12szt-11917053917
+  * model 3d uchwytu: https://www.ergom.com/tse-rail-holder-um-01-type-um-01-20-12-pcs.html - wynika z niego ze otwor ma 7mm srednicy
 * 4x szyna DIN perforowana
   * 0,5mb za 5,99zl/szt: https://allegro.pl/oferta/szyna-montazowa-th-35-din-listwa-perforowana-0-5m-10755656340
 * przewody puszczę w kanał grzebieniowy:
   * 40x40; 9zl /mb: https://www.speckable.pl/pl/product/10568,kanal-grzebieniowy-szary-40x40
+* uchwyty DIN mocowane (jeszcze nie wiem):
+  * kołkam rozporowymi do ściany
+  * do płyty montazowej (z innej rodzielnicy)
+  * do [plyty stalowej perforowanej na zamowienie](https://www.mevaco.pl/503227.html), cena okolo 1200 zl za plyte 550x1000mm)
+  * do plyty z tekstolitu / bakielitu
+* skretka UTP5 z elementow nisko-napieciowych rozbita na zlaczkach LSA jak Maciej zrboil u siebie
+
 * natomiast wnęka zabezpieczona dzwiczkami rewizyjnymi na wymiar:
   * https://www.mikavent.pl/pl/p/Drzwiczki-rewizyjne-metalowe-na-wymiar/3104
   * albo te wyglądają świetnie: https://www.luxmetal.pl/drzwiczki-rewizyjne
@@ -187,11 +197,152 @@ Mógłbym zbić te cegłę i zrobić tę instalacje bezpośrednio na cegle.
 Zza czarnej dymionej plexy byłoby widać rozdzielnicę z Bone.io na ścianie z czerwonej cegły.
 
 ## czego powininees nauczyc sie elektryce aby zaplanowac rozdzielnice i instalacje
-* podstawy elektyrki, prad, napiecie, natezenie
-* uklady sieci
-* kolory kabli
-* przekroje kabli
-* rodzaje kabli
+### podstawy elektyrki, prad, napiecie, natezenie
+Napiecie
+
+Za napiecie bezpiecne uwaza sie napiecie do 24V.
+
+### uklady sieci
+Uklad sieci to wazna sprawa. Od niego zalezy sensownosc uzywania pewnych zabezpiecznen oraz sposob podlaczenia przwdowod ochronnych.
+
+Zadanie: dowiedz się jaki masz uklad sieci. Z jedenj strony przesledz podlaczenie przewodow, z 2giej sprawdz w umowie (jakiej) i/lub zapytaj operatora.
+
+Poczytaj:
+* https://bezel.com.pl/2018/08/01/uklady-sieci/
+
+Dowiedzialem sie od Stoen ze u mnie jest TN-C (punkt 2.2 z powyzszego artyklulu).
+
+#### Jak sie tego dowiedzialem?
+Wystosowalem maila do operatora:
+
+```
+x
+```
+
+i dostalem odpowiedz
+```
+X
+```
+
+#### Co w zrobie w zwiazku z moim TN-C?
+
+Po pierwsze zrobie w rodzielnicy rodzial PEN na PE i N (bez dodatkowego uziemienia bo nie mam gdzie) zmieniajac uklad sieci z TN-C (2.2) na TN-C-S(2.4). Taki rodzial pozwoli mi zastosowac wylaczniki roznicowo pradowe.
+
+```
+nowych modernizowanych sieciach konieczne jest stosowanie
+układu TN-S lub TN-C-S. Związane jest to z normą dotyczącą bezpieczeństwa porażeniowego. W tych układach przewód ochronno-neutralny PEN został rozdzielony na przewód ochronny PE
+i neutralny N.
+Eliminuje to takie zjawiska jak:
+- pojawienie się napięcia fazowego na obudowach odbiorników,
+- pojawienie się na przewodzie PEN napięcia niekorzystnego dla użytkowanych odbiorników, wywołanego przepływem przez ten przewód prądu wyrównawczego, spowodowanego
+zaistnieniem asymetrii prądowej w instalacji.
+```
+Zrodlo: https://laczynasnapiecie.pl/pytanie/czym-sie-rozni-uklad-sieciowy-tnc-od-tns-czy-ma-to-jakies-znaczenie-w-domowej-instalacji
+
+Uklad TN-C jest przestarzaly i zapewnia slaba ochrone przeciw porazaeniowa. Prawde mowiac to ja nie do konca rozumiem jak rodzial PEN (TN-C-S) pomgaga zwiekszyc bezpiecznestwo (po za mozliwosc uzycia RCD), no ale wszedzie spotaklem sie z inforamacja ze wspolczesnie sie je rozdziela wiec robie tak. Jednoczesnie lobbuje we wspolnocie aby przed remontem klatki puscic nowa instalacje elektryczna, z grubszumi przewodami, 3 fazowa i z osobnym uziomem (uklad TN-S). Zamierzam uzyc argymentow o zwiekszonym zapotrzebowania na prad elektryczny (kuchnie idukcyjne, kilimatyzatory) oraz straszyc kuciem swiezo wyremontowanej klatki w przypadku gdyby ktos popalil kable. Zobaczymy czy pomoze :)
+
+### fazy
+
+Zadanie: powinienes wiedziec czy masz instalacje 1 czy 3 fazowa. Oraz ile A przylacze. (jak to sie dokladnie nazywa?)
+
+### definicja kabel vs przewod
+
+```
+Pojedynczy, przewodzący prąd elektryczny drut, linka albo płaskownik szyny prądowej to elementy przewodu nazywane żyłami. Przewód zwiera zawsze tylko jedną żyłę, która może być zaizolowana lub nie. Innymi słowy, przewód to prosty, jednożyłowy łącznik elektryczny, który może być, ale nie musi, osłonięty zwykle najprostszą możliwą izolacją, której zadaniem jest tylko i wyłącznie izolowanie żyły pod względem elektrycznym. Obecnie na izolacje żył w przewodach stosuje się najczęściej różnego rodzaju tworzywa sztuczne takie jak np. PCV.
+
+Z kolei kabel, to, zgodnie z międzynarodową nomenklaturą, wyrób złożony składający się z jednego lub kilku (bądź kilkunastu) najczęściej osobno izolowanych przewodów umieszczonych we wspólnej powłoce lub osłonie. Dodatkowo, składające się na kabel przewody mogą być wspólnie lub pojedynczo ekranowane, a ich izolacja może zawierać również elementy wzmocnienia mechanicznego takie jak, np. oplot czy stalowe linki. Co więcej, w kablu poszczególne żyły mogą być również zatapiane we wspólnej powłoce. Innymi słowy, każdy kabel jest złożonym przewodem, natomiast nie każdy przewód jest kablem – właśnie ze względu na swoją najprostszą możliwą budowę.
+
+W tym miejscu warto też zwrócić uwagę na stosowane często w elektroenergetyce niezbyt poprawne rozróżnienie kabli i przewodów. Przyjmuje się tutaj, że kabel jest przewodem do zastosowań zewnętrznych, poza budynkami – na przykład kable ziemne czy napowietrzne – natomiast przewody montowane są wyłącznie wewnątrz budynków, bez względu na ich złożoną budowę. W ogólności termin kabel może odnosić się do konstrukcji, a przewód do pełnionej funkcji.
+```
+Źródło: https://helukabel.pl/blog/przewod-czy-kabel-oto-jest-pytanie/
+
+Podsumowanie:
+* miedzynaorodowo:
+  * zyla - drut, linka, plastkownik, przewodzi prad elektryczny
+  * przewod - zawiera jeda zyłę - na ogół zaizolowaną
+  * kabel - składa się z osobno izolowanych przewodow
+* w budownictwie czasami przyjmuje sie podzial poprzez zastosowanie:
+   * kabel - zewnetrznych
+   * przewod - wewnetrnych
+
+## kolory przewodów
+Współcześnie kolory przewodow oznacza się następująco:
+![kolory przewodow](https://wroclaw.house/sites/wroclaw.house/files/styles/responsive_image_1200/public/media/image/przewody-elektryczne-kolory.jpg?itok=fy0CFayi)
+
+W instalacjach 1-fazowych, występuje tylko L1 (Line 1) oznaczane jako L (Line), N (neutral) i PE(protective earth).
+W instalacjach 3fazowych wysteouje takze L2 i L3. Typowe zastoswanie instalacji 3fazowej w domu to:
+* kuchenka indukcyjna
+* ladowarka samochodow elektrycznych
+* maszyny przemysłowe, silniki elektryczne, np krejzega
+
+I podlacza sie je go gniazdka nastepujaco:
+![podlaczenie gniazdka](https://wroclaw.house/sites/wroclaw.house/files/styles/responsive_image_1200/public/media/image/jak-podlaczyc-gniazdko-kolory.jpg?itok=ez5lbT5l)
+
+Do poczytania: https://wroclaw.house/instalacje/elektryczne/co-oznaczaja-kolory-przewodow-elektrycznych
+
+Natomiast w instalachach niskonapieciowych stosuje się dodatkowo kolory:
+![kolory](http://grylewicz.pl/wp-content/uploads/2014/12/rozpiska_atx.jpg)
+
+Nie jestem pewien ich wszytkich natomiast na pewno:
+* czarny - GND, ground, minus
+* czerowny - plus, na ogol +5V
+
+https://iautomatyka.pl/barwy-w-automatyce/ - tutaj zas mowia ze czerwony do +24 i +48V
+
+stad ja np przewody z zasilacza 24V oznaczam kablami w kolorze czarnym oraz czerwonym, aby odroznic przewody niskonapieciowe o wysoko napieciowych. jesli jest do wyniesienia jakas lekcja o kolorach kabli dla amatora to uzyj czarno-czerwnoego kolory zlaczek i przewodow dla instalacji niskonapeiciowych, a jak masz rozne napiecia np 12 i 24v to uzyj jeszcze wiecej
+
+### Mam kablel 4 zylowy do podlaczenia zyrandola, jak to podlaczam?
+masz prwniee kolry L1, L2, N i PE.
+L1 do jednej zarwko, L2 do 2giej
+nie musza byc wcale podlczaone do osnych faz, tylko do osobnego stycznika
+tu masz to ladnie opiane: https://lumenos.pl/jak-podlaczyc-lampe-w-domu/
+
+### rodzaje kabli omowic
+
+### przekroje przewodow i bezpieczniki
+jakie przewody w okole uzywamy w instalacjach domowych?
+
+prosta zasada:
+* do gniazdek 16a bezpiecznik i przewod 2.5mm2
+* do swiatel przewod 1.5mm2 i bezpiecznik 10A
+
+![przekroje przewodow](https://static01.leroymerlin.pl/files/fs-upload/fckeditor/image/multimedia-storage/85/08/b8311552cf2d2c2376b891f5857f-przekroje_przewodow.jpg)
+
+
+Zabezpieczniea, definicje:
+* bezpiecznik nadprdowy
+* wylacznik roznocowo pradowy
+* RCBO (Residual current operated Circuit Breaker with Overcurrent protection - Wyłączniki różnicowoprądowe z członem nadprądowym)
+* (te od przepiec)
+* rozlacznik izolacyjny
+
+#### Jakie uzylem zabezpiecznia w rodzielnicy?
+Uzylem uzywanych RCBO Siemensa za srednio okolo 75zl za sztuke z Allegro, na ogol wymontowywane z maszyn przemyslowych. Zalozylem ze RCBO Simensa sa solidne, raczej sie nie zepsuja. Ale nie polecam tego rozwiazania nikomu innemu, bo nie moge wziac za to opowiedzialosci, zrobilem to na wlasne ryzyko. Uzywane RCBO byly tanie, zajmuja malo miejsca i sa wygodne aby podzielic mieszkanie na sekcje, gdzie kazda sekcja ma osobne zabezpiecznie roznicowo prodowe, zabezpieczajace przed porazeniem. Poniewaz duzo pracuje przed komputerami to dla mnie wazne aby jedna awarnia nie wywalila mi calego mieszkania - stad taki podzial.
+
+Mieszkanie podzielilem na sekcj RCBO:
+* C16 - gniazdka 16A w pracowni oraz gniazda robocze w rodzielnicy (jakby przyszlo mi do glowy podlaczac ciezsze maszyny)
+* B6 - lodowka w kuchni (to nie jest rozwiazanie zgodne ze sztuka - jesli mam gniazdko 16A, a mam to zabepzpiecznie powinno byc 16A; ale jednoczensie lodowka nie pobierze tyle pradu, 6A dla lodowki wystarczy, a ja chce moc ja osobno odlaczac, na wypadek np wyjazdu na urlop oraz aby w przyopadku awarii nie odlaczylo mi lodowki i sie nie rozmrozila, dlatego puscilem do niej osobny przewod 2.5mm2, ale zamiast zabezpiecznia 16A dalem 6A bo takie mialem wolne, pod reka)
+* B16 - pozostale gniazdka w kuchni - zmywarka, mikrofalowka, okap, etc.
+* B16 - sypialnia
+* B16 - pracownia (po za jednym gniazdem przeznaczonym do podlacznia urzedzen ktore moga chwilowo pobierac wiecej pradu)
+* B10 - sekcja swiatl pomieszczen o zwiekszonym ryzyku awarii (woda) czyli lazienka i kuchnia
+* B10 - sekcja pozostalych swiatel - korytarz i 2 pokoj
+* B6 - gniazda w lazience (znow, nie jest to zgodne ze sztuka, mam gniazda 16A, powinno byc zabezpiecznie 16A ale nie planuje nic mocnego podlaczac w lazience a nie chce aby byle zachlapanie wywalilo mi bezpieczniki gdzies indziej, wiec mam osobno).
+* X? - infrastruktura sieciowa w rodzielnicy - modem, switch PoE
+
+Czyli mam 8 RCBO za srednio okolo 75zl za sztuke z Allegro, czyli 8*75=600zl
+Troche sporo ale uznalem ze warto dla spokoju ducha i bezpieczniesntwa istalacji i nieprzewwanej pracy.
+
+Generalnie poniewaz przekazniki bone.io (w mojej wersji) maja 16a to wszystko co przez nie przepuszczasz powinno byc podlaczone do bezpiecznika B16(A). W ten sposob chronisz tez przekazniki przed uszkodzeniem. Ja do beziecznika C16(A) podlaczylem tylko gniazda, ktore nie sa sterowane przez Bone.io.
+
+Do urzadzen w rodzielnicy, ktore nie uzywaja przewodu PE, takich jak zasilacze impulsowe 24V (jeden do Bone.io, drugi do tasm LED) uzylem po prostu bezpiecznika nadpradowego o charakterystye C2 (Bone.io) i C4 (tasm LED). Zabezoiecznia i charakterysrtyce C sa polecane do zasilaczy impulswoych ktoe przy rozruzchy moga pobierac wiecej pradu. Natomioast maly amperaz dlatego, ze stosuje do tych urzadzen cienkie przewody i nie przewiduje aby pobieraly wiecej. Mam tez 2 osobne zasilacze i 2 osobne bezpieczniki, aby wyjezdzajac np na wakcje moc wylaczyc zasilacz do LEDow ale nie wylaczac tego do Bone.io.
+
+Co wiecej, czesc RCBO przyszla ze stycznikami. Stycznuki to 0.5 modulu do ktoego moge podlaczyc Bone.io a te bedzie mi podal stan wysoki lub niski w zaleznosci od tego czy obwod jest otwarty czy zmkniety. To oznacza, ze moge miec prosty monitoring z poziomu Bone.io ktore obwody sa zamkniete, np powiadomienia gdy wyleci wiekszosc bezpiecznikow (po za tymi ktore zasilaja bone.io i infrastrukure sieciowa). Dokupilem styczniki do pozostalych RCBO i bezoeicznika do LED i zamierzam odczytywac stan bezpieczniaka ze wszystkich RCBO i bezpiecznikow, po za tym ktory zasila Bone.io. W ten sposob bede mial monitoring np kiedy "wylecial korek". Bede tez mogl sprawdzic czy wylaczylem prad wyjezdzajac na wakacje.
+
+Instalacja jest tak zaprojektowana aby mogl wyjechac na wakacje zostawiajac wlaczone tykko Bone.io, urzadzenia sieciowe i lodowke.
+{rozwazam osobny kabel do serverow, szafy rack}
+
+
 * zabezpieczenia i elementy rozdzielnicy
   * rozlacznik izolacyjny
   * lampka / kontroler faz
@@ -209,6 +360,8 @@ Zza czarnej dymionej plexy byłoby widać rozdzielnicę z Bone.io na ścianie z 
 ogolnie
 
 tutaj zebrac linki do Ciekawych YT i artow i dac do przeczytaniaw odpowniedniej kolejniosci
+
+
 
 
 # przeprowadzanie instalacji
@@ -267,6 +420,9 @@ co mozna wyporzyczyc:
 Polski NKT, Bitner, helukabel, lappkabel, molex, telegartner, telefonika.
 Generalnie w zastosowaniach domowych trzymałbym się marek europejskich.
 
+
+
+
 ## osprzet elektryczny - gniazdka i przyciski
 W tej czesci omowimy sobie to co instalujemy na scianie czyli: ramki, gniazdka i przedewszystkim przycsiki elektryczne. Jakie przyciski i jak mozesz podlaczyc do Bone.io - jakie sa dostepne rozwiazania i ile mniej wicej kosztuja. Przeglad technologii i info jak zrobic instalacje.
 
@@ -290,9 +446,17 @@ Mozna uzyc przycisku dzwonkowego (po prostu zamykajacego obwod) aby zasygnaloowa
   * [zwierne bez piktogramu pojedyncze](https://www.dobregniazdka.pl/group-product/przyciski-pojedyncze-zwierne-bez-piktogramow-simon-54) + [klawisze](https://www.dobregniazdka.pl/group-product/klawisze-pojedyncze-do-wylacznkow-simon-54-antybakteryjnych),
   * [podwojne](https://www.dobregniazdka.pl/group-product/przyciski-podwojne-zwierne-bez-piktogramow-simon-54) + [klawisze](https://www.dobregniazdka.pl/group-product/klawisze-podwojne-do-wylacznkow-simon-54-antybakteryjnych),
   * [potrojne](https://www.dobregniazdka.pl/group-product/przyciski-potrojne-zwierne-simon-54) oraz [z podświetleniem](https://www.dobregniazdka.pl/group-product/przyciski-zwierne-potrojne-podswietlane-simon-54) od 40,10zł.
+  * [poczworne](https://onelectro.pl/lacznik-przycisk-poczworny-elektroniczny-czarny-mat-dew4-01-49-simon-54) od 138zł
   * [rozwierne](https://www.dobregniazdka.pl/group-product/przyciski-rozwierne-simon-54) które działają odwrotnie - rozwierają obwód przy naciśnieciu klawisza od 21,83zł,
   * przy czym prawdopodobnie podświetlenia nie będą działały bo przyciski dedykowane są do 250V, być moze da się zmienić źródło światła w przycisku na 24V
   *  + ramka oczywiście
+  * ciawostki:
+    * [gniazda glosnikowe](https://www.dobregniazdka.pl/group-product/gniazda-glosnikowe-simon-54) od 31,60zl
+    * [ladowarka 2x USB A](https://www.dobregniazdka.pl/group-product/gniazda-ladowarka-2xusb-simon-54) od 79,61 zł
+    * [gniazda światłowodowoe i optyczne](https://www.dobregniazdka.pl/group-product/gniazda-swiatlowodowe---optyczne-simon-54) od 25,9zl
+    * [Gniazda komp. RJ45 kat.5e + tel. RJ12](https://www.dobregniazdka.pl/group-product/gniazda-komp.-rj45-kat.5e-tel.-rj12-simon-54) od 59,54zl
+
+* seria [54 Touch](https://www.dobregniazdka.pl/category/simon-54-touch) moze ale nie musi byc kompatybilna - sprawdzic
 * [Simons 82] mamy:
   * [zaluzjowe](https://www.dobregniazdka.pl/group-product/wylaczniki-zaluzjowe-simon-82) od 55,05zl,
   * [jednoprzyciskowe](https://www.dobregniazdka.pl/group-product/przyciski-zwierne-simon-82-detali-nature) od 32,84zł
@@ -336,13 +500,19 @@ Kilka przykladow buttonow w obudowach:
 * https://allegro.pl/oferta/przycisk-chwilowy-zwierny-dzwonkowy-2a-250v-metal-11866016200
 * https://allegro.pl/oferta/przycisk-chwilowy-zwierny-dzwonkowy-2a-250v-metal-12296830778
 * https://allegro.pl/oferta/przycisk-reset-okragly-zwierny-off-on-gq12b-10j-11069526968
+* https://allegro.pl/oferta/przycisk-reset-okragly-zwierny-off-on-gq16m-10-7686891822
 * https://allegro.pl/oferta/przycisk-reset-okragly-zwierny-hq-off-on-ps28h-8125075999
+
+* z ramka jako wandaloodporne:
+* https://allegro.pl/oferta/aco-ins-ob-zewnetrzny-przycisk-zwierny-10744863505
+* https://allegro.pl/oferta/ins-ob-60-zewnetrzny-przycisk-zwierny-do-puszki-12087838872
+
 
 I samych przyciskow:
 * https://allegro.pl/oferta/przelcznik-monostabilny-podwojny-8x8mm-5720254487?fromVariant=7402800349
 * https://allegro.pl/oferta/tact-switch-10-sztuk-6x6x17mm-7489202701?fromVariant=5720254487
 
-TACT SWITCH, przycisk monostabilny, przycisk reset - slowa klucze
+TACT SWITCH, przycisk monostabilny, przycisk reset, zwierny, łącznik, chwilowy - słowa klucze
 
 Mozesz sobir zabuddowac tai przycisk gdzies w meblach czy nawet na scianie z takim samym efektem jak uzywanie zwyklego przycisku z osprzetu elektrucznego.
 
